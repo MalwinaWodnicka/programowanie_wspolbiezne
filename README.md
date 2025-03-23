@@ -1,5 +1,8 @@
-# Welcome to GitHub Desktop!
+# Concurrent programming
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
+## Working Group
 
-Write your name on line 6, save it, and then head back to GitHub Desktop.
+| Name Surname (initials) | GUID                                     |
+| ----------------------- | ---------------------------------------- |
+| Julia Dobroszek         | `{582efaa6-0fcf-46dc-9dd6-d1ffa47eca0d}` |
+| Malwina Wodnicka        | `{5e0ded5f-6996-41b3-b7cd-af3d922216a2}` |
