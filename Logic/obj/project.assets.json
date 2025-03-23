@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    ".NETStandard,Version=v2.1": {}
+    ".NETStandard,Version=v2.1": {
+      "Dane/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Dane.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Dane.dll": {}
+        }
+      },
+      "Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Model.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Dane/1.0.0": {
+      "type": "project",
+      "path": "../Data/Dane.csproj",
+      "msbuildProject": "../Data/Dane.csproj"
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "path": "../Model/Model.csproj",
+      "msbuildProject": "../Model/Model.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETStandard,Version=v2.1": []
+    ".NETStandard,Version=v2.1": [
+      "Dane >= 1.0.0",
+      "Model >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Julia\\.nuget\\packages\\": {},
@@ -39,7 +77,14 @@
       "frameworks": {
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Data\\Dane.csproj": {
+              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Data\\Dane.csproj"
+            },
+            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj": {
+              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

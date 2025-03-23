@@ -8,4 +8,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Data\Dane.csproj" />
+		<ProjectReference Include="..\Model\Model.csproj" />
+		<ProjectReference Include="..\Logic\Logika.csproj" />
+	</ItemGroup>
+
 </Project>

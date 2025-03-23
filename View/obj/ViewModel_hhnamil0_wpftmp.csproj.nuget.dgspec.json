@@ -32,11 +32,7 @@
         "frameworks": {
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
-            "projectReferences": {
-              "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj": {
-                "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {

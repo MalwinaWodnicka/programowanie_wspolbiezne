@@ -1,11 +1,69 @@
 {
   "version": 3,
   "targets": {
-    "net8.0-windows7.0": {}
+    "net8.0-windows7.0": {
+      "Dane/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Dane.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Dane.dll": {}
+        }
+      },
+      "Logika/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Dane": "1.0.0",
+          "Model": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Logika.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Logika.dll": {}
+        }
+      },
+      "Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Model.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Dane/1.0.0": {
+      "type": "project",
+      "path": "../Data/Dane.csproj",
+      "msbuildProject": "../Data/Dane.csproj"
+    },
+    "Logika/1.0.0": {
+      "type": "project",
+      "path": "../Logic/Logika.csproj",
+      "msbuildProject": "../Logic/Logika.csproj"
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "path": "../Model/Model.csproj",
+      "msbuildProject": "../Model/Model.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0-windows7.0": []
+    "net8.0-windows7.0": [
+      "Dane >= 1.0.0",
+      "Logika >= 1.0.0",
+      "Model >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Julia\\.nuget\\packages\\": {},
@@ -39,7 +97,17 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Data\\Dane.csproj": {
+              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Data\\Dane.csproj"
+            },
+            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Logic\\Logika.csproj": {
+              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Logic\\Logika.csproj"
+            },
+            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj": {
+              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
