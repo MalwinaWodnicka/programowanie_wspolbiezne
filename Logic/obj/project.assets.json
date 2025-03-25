@@ -46,23 +46,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Julia\\.nuget\\packages\\": {},
+    "C:\\Users\\malwi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Logic\\Logika.csproj",
+      "projectUniqueName": "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Logic\\Logika.csproj",
       "projectName": "Logika",
-      "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Logic\\Logika.csproj",
-      "packagesPath": "C:\\Users\\Julia\\.nuget\\packages\\",
-      "outputPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Logic\\obj\\",
+      "projectPath": "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Logic\\Logika.csproj",
+      "packagesPath": "C:\\Users\\malwi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Logic\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Julia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\malwi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -71,18 +71,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
           "projectReferences": {
-            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Data\\Dane.csproj": {
-              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Data\\Dane.csproj"
+            "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Data\\Dane.csproj": {
+              "projectPath": "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Data\\Dane.csproj"
             },
-            "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj": {
-              "projectPath": "D:\\STUDIA\\Semestr 4\\Programowanie współbieżne\\Repozytorium\\programowanie_wspolbiezne\\Model\\Model.csproj"
+            "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Model\\Model.csproj": {
+              "projectPath": "C:\\Users\\malwi\\Desktop\\studia\\semestr 4\\programowanie współbieżne\\programowanie_wspolbiezne\\Model\\Model.csproj"
             }
           }
         }
