@@ -24,10 +24,10 @@ namespace Logic
                 kula.X += kula.PredkoscX;
                 kula.Y += kula.PredkoscY;
 
-                if (kula.X - kula.Promien < 0 || kula.X + kula.Promien > _szerokosc)
+                if (kula.X - kula.Promien <= 0 || kula.X + kula.Promien >= _szerokosc)
                     kula.PredkoscX *= -1;
 
-                if (kula.Y - kula.Promien < 0 || kula.Y + kula.Promien > _wysokosc)
+                if (kula.Y - kula.Promien <= 0 || kula.Y + kula.Promien >= _wysokosc)
                     kula.PredkoscY *= -1;
             }
         }
