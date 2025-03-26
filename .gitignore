@@ -12,15 +12,11 @@
 [Dd]ebugPublic/
 [Dd]istro/
 [Dd]ebugCore/
-[Dd]Release/
 [Dd]ebugPortable/
+[Dd]Release/
 [Dd]ReleasePortable/
-
-# User-specific files
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+bin/
+obj/
 
 # Windows Installer files
 *.cab
@@ -29,16 +25,14 @@
 *.msp
 
 # Windows Installer logs
-*.cab
-*.msi
-*.msm
-*.msp
+*.log
 
 # Windows Installer temporary files
 *.pdb
 
 # NuGet
 *.nupkg
+
 # .NET Core
 project.lock.json
 project.fragment.lock.json
@@ -46,11 +40,6 @@ artifacts/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
-
-# User-specific files
-.idea/
-.vs/
-.vscode/
 
 # Microsoft Visual Studio for Mac config folder
 .vscode/
