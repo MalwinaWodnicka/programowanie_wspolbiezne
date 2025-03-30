@@ -30,7 +30,7 @@ namespace View
 
             SizeChanged += (s, e) =>
             {
-                _symulator.UpdateGranice(Width, Height);
+                _symulator.UpdateGranice(ActualWidth, ActualHeight);
             };
         }
 
