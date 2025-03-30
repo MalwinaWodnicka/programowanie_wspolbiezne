@@ -3,8 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Model;
-using Data;
 using Logic;
 using System.Windows.Threading;
 
@@ -12,19 +10,16 @@ namespace View
 {
     public partial class MainWindow : Window
     {
-        private readonly ZbiorKul _zbior;
-        private readonly Symulator _logika;
+        private readonly Symulator _symulator;
         private readonly DispatcherTimer _timer;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _zbior = new ZbiorKul();
-            _zbior.AddKula(new Kula(50, 50, 3, 2, 20));
-            _zbior.AddKula(new Kula(200, 150, -2, 3, 30));
-
-            _logika = new Symulator(_zbior, ActualWidth, ActualHeight);
+            _symulator = new Symulator(ActualWidth, ActualHeight);
+            _symulator.DodajKule(50, 50, 3, 2, 20);
+            _symulator.DodajKule(200, 150, -2, 3, 30);
 
             _timer = new DispatcherTimer
             {
@@ -35,20 +30,20 @@ namespace View
 
             SizeChanged += (s, e) =>
             {
-                _logika.UpdateGranice(ActualWidth, ActualHeight);
+                _symulator.UpdateGranice(Width, Height);
             };
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            _logika.Update();
+            _symulator.Update();
             RysujKule();
         }
 
         private void RysujKule()
         {
             MainCanvas.Children.Clear();
-            foreach (var kula in _zbior.GetKule())
+            foreach (var kula in _symulator.PobierzKule())
             {
                 Ellipse ellipse = new Ellipse
                 {

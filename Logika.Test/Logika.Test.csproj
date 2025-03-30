@@ -22,7 +22,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Logic\Logika.csproj" />
-		<ProjectReference Include="..\Model\Model.csproj" />
 		<ProjectReference Include="..\Data\Dane.csproj" />
 	</ItemGroup>
 
