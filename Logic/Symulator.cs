@@ -9,11 +9,26 @@ namespace Logic
         private readonly ZbiorKul _zbior;
         private double _szerokosc;
         private double _wysokosc;
+        private Random _random = new Random();
 
         public Symulator(double szerokosc, double wysokosc)
         {
             _zbior = new ZbiorKul();
             UpdateGranice(szerokosc, wysokosc);
+        }
+
+        public void DodajLosoweKule(int liczbaKul, double minPromien, double maxPromien, double minPredkosc, double maxPredkosc)
+        {
+            for (int i = 0; i < liczbaKul; i++)
+            {
+                double promien = _random.NextDouble() * (maxPromien - minPromien) + minPromien;
+                double x = _random.NextDouble() * (_szerokosc - 2 * promien) + promien;
+                double y = _random.NextDouble() * (_wysokosc - 2 * promien) + promien;
+                double predkoscX = (_random.NextDouble() * 2 - 1) * (maxPredkosc - minPredkosc) + minPredkosc;
+                double predkoscY = (_random.NextDouble() * 2 - 1) * (maxPredkosc - minPredkosc) + minPredkosc;
+
+                DodajKule(x, y, predkoscX, predkoscY, promien);
+            }
         }
 
         public void DodajKule(double x, double y, double predkoscX, double predkoscY, double promien)

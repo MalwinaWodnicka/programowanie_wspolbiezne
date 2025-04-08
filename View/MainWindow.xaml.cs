@@ -18,8 +18,6 @@ namespace View
             InitializeComponent();
 
             _symulator = new Symulator(ActualWidth, ActualHeight);
-            _symulator.DodajKule(50, 50, 3, 2, 20);
-            _symulator.DodajKule(200, 150, -2, 3, 30);
 
             _timer = new DispatcherTimer
             {
@@ -31,6 +29,12 @@ namespace View
             SizeChanged += (s, e) =>
             {
                 _symulator.UpdateGranice(ActualWidth, ActualHeight);
+            };
+
+            Loaded += (s, e) =>
+            {
+                _symulator.UpdateGranice(ActualWidth, ActualHeight);
+                _symulator.DodajLosoweKule(5, 10, 30, 1, 5);
             };
         }
 
