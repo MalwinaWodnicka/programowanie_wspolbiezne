@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Logic\Logika.csproj" />
-		<ProjectReference Include="..\ViewModel\ViewModel.csproj" />
 	</ItemGroup>
-
+		
 </Project>
