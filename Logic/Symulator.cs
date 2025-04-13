@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dane;
 using Data;
 
 namespace Logic
 {
     public class Symulator
     {
-        private readonly ZbiorKul _zbior;
+        private readonly IZbiorKul _zbior;
         private double _szerokosc;
         private double _wysokosc;
         private Random _random = new Random();
 
-        public Symulator(double szerokosc, double wysokosc)
+        public Symulator(IZbiorKul zbiorKul, double szerokosc, double wysokosc)
         {
-            _zbior = new ZbiorKul();
+            _zbior = zbiorKul ?? throw new ArgumentNullException(nameof(zbiorKul));
             UpdateGranice(szerokosc, wysokosc);
         }
 

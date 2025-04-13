@@ -20,8 +20,8 @@ namespace Data
             Promien = promien;
         }
     }
-        public class ZbiorKul
-        {
+        public class ZbiorKul : Dane.IZbiorKul
+    {
             private readonly List<Kula> _kule = new List<Kula>();
 
             public IEnumerable<Kula> GetKule()

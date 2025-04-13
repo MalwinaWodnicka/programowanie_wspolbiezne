@@ -1,7 +1,4 @@
-using Xunit;
 using Data;
-
-using System.Linq;
 
 namespace Dane.Test
 {
@@ -45,12 +42,13 @@ namespace Dane.Test
             Assert.Equal(10, kula.Promien);
         }
     }
+
     public class ZbiorKulTest
     {
         [Fact]
         public void AddKulaToList()
         {
-            var zbior = new ZbiorKul();
+            IZbiorKul zbior = new ZbiorKul();
             var kula = new Kula(10, 10, 1, 1, 5);
 
             zbior.AddKula(kula);
@@ -62,11 +60,8 @@ namespace Dane.Test
         [Fact]
         public void ClearKule()
         {
-            var zbior = new ZbiorKul();
+            IZbiorKul zbior = new ZbiorKul();
             zbior.AddKula(new Kula(10, 10, 1, 1, 5));
-
-            zbior.ClearKule();
-
             Assert.Empty(zbior.GetKule());
         }
     }
