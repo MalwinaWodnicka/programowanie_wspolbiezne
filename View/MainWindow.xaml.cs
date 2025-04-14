@@ -6,6 +6,7 @@ using System.Windows.Shapes;
 using Logic;
 using Logika;
 using System.Windows.Threading;
+using Microsoft.Win32;
 
 namespace View
 {
@@ -35,8 +36,31 @@ namespace View
             Loaded += (s, e) =>
             {
                 _symulator.UpdateGranice(ActualWidth, ActualHeight);
-                _symulator.DodajLosoweKule(5, 10, 30, 1, 5);
+                ZapytajOIloscKul();
             };
+        }
+
+        private void ZapytajOIloscKul()
+        {
+            string input = Microsoft.VisualBasic.Interaction.InputBox(
+                "Wprowadź liczbę kul:",
+                "Generowanie kul",
+                "5",
+                (int)Left + (int)Width / 2 - 150,
+                (int)Top + (int)Height / 2 - 75);
+
+            if (int.TryParse(input, out int liczbaKul) && liczbaKul > 0)
+            {
+                _symulator.DodajLosoweKule(liczbaKul, 10, 30, 1, 5);
+            }
+            else
+            {
+                MessageBox.Show("Nieprawidłowa wartość. Używam domyślnej liczby kul (5).",
+                                "Błąd",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                _symulator.DodajLosoweKule(5, 10, 30, 1, 5);
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
