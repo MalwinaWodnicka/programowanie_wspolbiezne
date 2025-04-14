@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dane;
 
 namespace Data
 {
@@ -20,7 +21,7 @@ namespace Data
             Promien = promien;
         }
     }
-        public class ZbiorKul : Dane.IZbiorKul
+        public class ZbiorKul : IZbiorKul
     {
             private readonly List<Kula> _kule = new List<Kula>();
 

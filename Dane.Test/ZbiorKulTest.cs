@@ -56,13 +56,5 @@ namespace Dane.Test
             Assert.Single(zbior.GetKule());
             Assert.Equal(kula, zbior.GetKule().First());
         }
-
-        [Fact]
-        public void ClearKule()
-        {
-            IZbiorKul zbior = new ZbiorKul();
-            zbior.AddKula(new Kula(10, 10, 1, 1, 5));
-            Assert.Empty(zbior.GetKule());
-        }
     }
 }

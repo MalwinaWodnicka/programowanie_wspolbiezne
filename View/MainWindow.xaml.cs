@@ -4,13 +4,14 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Logic;
+using Logika;
 using System.Windows.Threading;
 
 namespace View
 {
     public partial class MainWindow : Window
     {
-        private readonly Symulator _symulator;
+        private readonly ISymulator _symulator;
         private readonly DispatcherTimer _timer;
 
         public MainWindow()

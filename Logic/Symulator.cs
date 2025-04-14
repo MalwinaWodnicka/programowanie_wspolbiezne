@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using Dane;
 using Data;
+using Logika;
 
 namespace Logic
 {
-    public class Symulator
+    public class Symulator : ISymulator
     {
         private readonly IZbiorKul _zbior;
         private double _szerokosc;
         private double _wysokosc;
         private Random _random = new Random();
+
+        public Symulator(double szerokosc, double wysokosc) : this(new ZbiorKul(), szerokosc, wysokosc)
+        {
+        }
 
         public Symulator(IZbiorKul zbiorKul, double szerokosc, double wysokosc)
         {
@@ -52,7 +57,7 @@ namespace Logic
                 if (nowyX - kula.Promien < 0)
                 {
                     kula.PredkoscX *= -1;
-                    nowyX = kula.Promien; 
+                    nowyX = kula.Promien;
                 }
                 else if (nowyX + kula.Promien > _szerokosc)
                 {
