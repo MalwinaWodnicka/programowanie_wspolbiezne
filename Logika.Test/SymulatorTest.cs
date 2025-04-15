@@ -2,16 +2,28 @@ using Xunit;
 using Logic;
 using Data;
 using System.Linq;
+using Dane;
 
 namespace Logika.Test
 {
     public class SymulatorTest
     {
-        private Symulator StworzSymulatorZKula(double x, double y, double predkoscX, double predkoscY, double promien, double szerokosc, double wysokosc, out Kula kula)
+        private class TestZbiorKul : IZbiorKul
         {
-            var symulator = new Symulator(szerokosc, wysokosc);
+            public List<Kula> Kule { get; } = new List<Kula>();
+
+            public IEnumerable<Kula> GetKule() => Kule;
+            public void AddKula(Kula kula) => Kule.Add(kula);
+            public void ClearKule() => Kule.Clear();
+        }
+
+        private ISymulator StworzSymulatorZKula(double x, double y, double predkoscX, double predkoscY,
+                                              double promien, double szerokosc, double wysokosc, out Kula kula)
+        {
+            var zbiorKul = new TestZbiorKul();
+            var symulator = new Symulator(zbiorKul, szerokosc, wysokosc);
             symulator.DodajKule(x, y, predkoscX, predkoscY, promien);
-            kula = symulator.PobierzKule().First();
+            kula = zbiorKul.Kule.First();
             return symulator;
         }
 
@@ -23,7 +35,7 @@ namespace Logika.Test
             symulator.Update();
 
             Assert.Equal(-10, kula.PredkoscX);
-            Assert.Equal(100 - kula.Promien - 15, kula.X); 
+            Assert.Equal(100 - kula.Promien - 15, kula.X);
         }
 
         [Fact]

@@ -45,16 +45,33 @@ namespace Dane.Test
 
     public class ZbiorKulTest
     {
+        private IZbiorKul UtworzZbiorKul()
+        {
+            return new ZbiorKul(); 
+        }
+
         [Fact]
         public void AddKulaToList()
         {
-            IZbiorKul zbior = new ZbiorKul();
+            IZbiorKul zbior = UtworzZbiorKul();
             var kula = new Kula(10, 10, 1, 1, 5);
 
             zbior.AddKula(kula);
 
-            Assert.Single(zbior.GetKule());
-            Assert.Equal(kula, zbior.GetKule().First());
+            var kule = zbior.GetKule().ToList();
+            Assert.Single(kule);
+            Assert.Equal(kula, kule.First());
+        }
+
+        [Fact]
+        public void ClearKule()
+        {
+            IZbiorKul zbior = UtworzZbiorKul();
+            zbior.AddKula(new Kula(10, 10, 1, 1, 5));
+
+            zbior.ClearKule();
+
+            Assert.Empty(zbior.GetKule());
         }
     }
 }
