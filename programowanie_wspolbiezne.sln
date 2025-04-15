@@ -13,7 +13,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{EEE0C2DA-6F3E-4497-89EF-0AAF860BC296}"
 	ProjectSection(ProjectDependencies) = postProject
 		{88F28B93-E753-4078-BE08-21F3291E8AF4} = {88F28B93-E753-4078-BE08-21F3291E8AF4}
-		{D0733E18-C057-4FCF-864D-5B0441E11065} = {D0733E18-C057-4FCF-864D-5B0441E11065}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dane.Test", "Dane.Test\Dane.Test.csproj", "{B8B36011-0277-4C54-91FA-7CB72832B03D}"
@@ -23,11 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{561EDB31-8B00-48A0-8877-F384FABBBFE0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{88F28B93-E753-4078-BE08-21F3291E8AF4} = {88F28B93-E753-4078-BE08-21F3291E8AF4}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{D0733E18-C057-4FCF-864D-5B0441E11065}"
-	ProjectSection(ProjectDependencies) = postProject
-		{561EDB31-8B00-48A0-8877-F384FABBBFE0} = {561EDB31-8B00-48A0-8877-F384FABBBFE0}
 	EndProjectSection
 EndProject
 Global
@@ -60,10 +54,6 @@ Global
 		{561EDB31-8B00-48A0-8877-F384FABBBFE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{561EDB31-8B00-48A0-8877-F384FABBBFE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{561EDB31-8B00-48A0-8877-F384FABBBFE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0733E18-C057-4FCF-864D-5B0441E11065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0733E18-C057-4FCF-864D-5B0441E11065}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0733E18-C057-4FCF-864D-5B0441E11065}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0733E18-C057-4FCF-864D-5B0441E11065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

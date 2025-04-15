@@ -10,7 +10,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Logic\Logika.csproj" />
-		<ProjectReference Include="..\ViewModel\ViewModel.csproj" />
 	</ItemGroup>
 
 </Project>
