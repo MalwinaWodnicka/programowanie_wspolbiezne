@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using Dane;
 using Data;
 using Logika;
@@ -84,7 +85,15 @@ namespace Logic
         public void UpdateGranice(double szerokosc, double wysokosc)
         {
             _szerokosc = szerokosc - 15;
-            _wysokosc = wysokosc - 38;
+            _wysokosc = wysokosc - 80;
+        }
+
+        public void ClearKule()
+        {
+            if (_zbior is IZbiorKul zbiorKul)
+            {
+                zbiorKul.ClearKule();
+            }
         }
     }
 }

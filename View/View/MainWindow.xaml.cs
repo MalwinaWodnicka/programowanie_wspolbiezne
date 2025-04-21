@@ -25,7 +25,6 @@ namespace View
             Loaded += (s, e) =>
             {
                 _viewModel.UpdateGranice(ActualWidth, ActualHeight);
-                _viewModel.Interakcja(this);
             };
         }
     }
