@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Logic;
 using Logika;
 using Microsoft.VisualBasic;
 using View.Model;
@@ -48,6 +49,30 @@ namespace ViewModel
         private readonly ISymulator _symulator;
         private readonly DispatcherTimer _timer;
         private ObservableCollection<Model> _kule = new ObservableCollection<Model>();
+        private double _width;
+        private double _height;
+
+        public double Width
+        {
+            get => _width;
+            set
+            {
+                _width = value;
+                OnPropertyChanged();
+                UpdateGranice();
+            }
+        }
+
+        public double Height
+        {
+            get => _height;
+            set
+            {
+                _height = value;
+                OnPropertyChanged();
+                UpdateGranice();
+            }
+        }
 
         public ObservableCollection<Model> Kule
         {
@@ -60,11 +85,15 @@ namespace ViewModel
         }
 
         public ICommand InterakcjaCommand { get; }
+        public ICommand LoadedCommand { get; }
+        public ICommand SizeChangedCommand { get; }
 
-        public MainViewModel(ISymulator symulator)
+        public MainViewModel()
         {
-            _symulator = symulator;
+            _symulator = new Symulator(800, 450); // Domyślne wartości
             InterakcjaCommand = new RelayCommand(ExecuteInterakcja);
+            LoadedCommand = new RelayCommand(OnLoaded);
+            SizeChangedCommand = new RelayCommand(OnSizeChanged);
 
             _timer = new DispatcherTimer
             {
@@ -74,9 +103,27 @@ namespace ViewModel
             _timer.Start();
         }
 
-        public void UpdateGranice(double width, double height)
+        private void OnLoaded(object parameter)
         {
-            _symulator.UpdateGranice(width, height);
+            if (parameter is Window window)
+            {
+                Width = window.ActualWidth;
+                Height = window.ActualHeight;
+            }
+        }
+
+        private void OnSizeChanged(object parameter)
+        {
+            if (parameter is SizeChangedEventArgs e)
+            {
+                Width = e.NewSize.Width;
+                Height = e.NewSize.Height;
+            }
+        }
+
+        private void UpdateGranice()
+        {
+            _symulator.UpdateGranice(Width, Height);
         }
 
         private void ExecuteInterakcja(object parameter)
