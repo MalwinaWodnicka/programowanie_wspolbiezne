@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using Dane;
 using Data;
 using Logika;
@@ -13,6 +14,7 @@ namespace Logic
         private double _szerokosc;
         private double _wysokosc;
         private Random _random = new Random();
+        private readonly object _updateLock = new object();
 
         public Symulator(double szerokosc, double wysokosc) : this(new ZbiorKul(), szerokosc, wysokosc)
         {
@@ -50,36 +52,103 @@ namespace Logic
 
         public void Update()
         {
-            foreach (var kula in _zbior.GetKule())
+            lock (_updateLock)
             {
-                double nowyX = kula.X + kula.PredkoscX;
-                double nowyY = kula.Y + kula.PredkoscY;
+                var kule = new List<Kula>(_zbior.GetKule());
 
-                if (nowyX - kula.Promien < 0)
+                Parallel.ForEach(kule, kula =>
                 {
-                    kula.PredkoscX *= -1;
-                    nowyX = kula.Promien;
-                }
-                else if (nowyX + kula.Promien > _szerokosc)
-                {
-                    kula.PredkoscX *= -1;
-                    nowyX = _szerokosc - kula.Promien;
-                }
+                    UpdateKulaPosition(kula);
+                    HandleWallCollision(kula);
+                });
 
-                if (nowyY - kula.Promien < 0)
+                for (int i = 0; i < kule.Count; i++)
                 {
-                    kula.PredkoscY *= -1;
-                    nowyY = kula.Promien;
+                    for (int j = i + 1; j < kule.Count; j++)
+                    {
+                        if (IsColliding(kule[i], kule[j]))
+                        {
+                            HandleBallCollision(kule[i], kule[j]);
+                        }
+                    }
                 }
-                else if (nowyY + kula.Promien > _wysokosc)
-                {
-                    kula.PredkoscY *= -1;
-                    nowyY = _wysokosc - kula.Promien;
-                }
-
-                kula.X = nowyX;
-                kula.Y = nowyY;
             }
+        }
+
+        private void UpdateKulaPosition(Kula kula)
+        {
+            kula.X += kula.PredkoscX;
+            kula.Y += kula.PredkoscY;
+        }
+
+        private void HandleWallCollision(Kula kula)
+        {
+            if (kula.X - kula.Promien < 0)
+            {
+                kula.X = kula.Promien;
+                kula.PredkoscX = -kula.PredkoscX;
+            }
+            else if (kula.X + kula.Promien > _szerokosc)
+            {
+                kula.X = _szerokosc - kula.Promien;
+                kula.PredkoscX = -kula.PredkoscX;
+            }
+
+            if (kula.Y - kula.Promien < 0)
+            {
+                kula.Y = kula.Promien;
+                kula.PredkoscY = -kula.PredkoscY;
+            }
+            else if (kula.Y + kula.Promien > _wysokosc)
+            {
+                kula.Y = _wysokosc - kula.Promien;
+                kula.PredkoscY = -kula.PredkoscY;
+            }
+        }
+
+        private bool IsColliding(Kula a, Kula b)
+        {
+            double dx = a.X - b.X;
+            double dy = a.Y - b.Y;
+            double distance = Math.Sqrt(dx * dx + dy * dy);
+            return distance < (a.Promien + b.Promien);
+        }
+
+        private void HandleBallCollision(Kula a, Kula b)
+        {
+            double nx = b.X - a.X;
+            double ny = b.Y - a.Y;
+            double distance = Math.Sqrt(nx * nx + ny * ny);
+            nx /= distance;
+            ny /= distance;
+
+            double dvx = b.PredkoscX - a.PredkoscX;
+            double dvy = b.PredkoscY - a.PredkoscY;
+
+            double velocityAlongNormal = dvx * nx + dvy * ny;
+
+            if (velocityAlongNormal > 0) return;
+
+            double restitution = 1.0; 
+            double j = -(1 + restitution) * velocityAlongNormal;
+            j /= (1 / a.Masa) + (1 / b.Masa);
+
+            double impulseX = j * nx;
+            double impulseY = j * ny;
+
+            a.PredkoscX -= impulseX / a.Masa;
+            a.PredkoscY -= impulseY / a.Masa;
+            b.PredkoscX += impulseX / b.Masa;
+            b.PredkoscY += impulseY / b.Masa;
+
+            double overlap = (a.Promien + b.Promien) - distance;
+            double moveX = overlap * nx * 0.5;
+            double moveY = overlap * ny * 0.5;
+
+            a.X -= moveX;
+            a.Y -= moveY;
+            b.X += moveX;
+            b.Y += moveY;
         }
 
         public void UpdateGranice(double szerokosc, double wysokosc)
@@ -90,10 +159,7 @@ namespace Logic
 
         public void ClearKule()
         {
-            if (_zbior is IZbiorKul zbiorKul)
-            {
-                zbiorKul.ClearKule();
-            }
+            _zbior.ClearKule();
         }
     }
 }
