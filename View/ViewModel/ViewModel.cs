@@ -112,7 +112,7 @@ namespace ViewModel
             }
         }
 
-        private void OnSizeChanged(object parameter)
+        public void OnSizeChanged(object parameter)
         {
             if (parameter is SizeChangedEventArgs e)
             {

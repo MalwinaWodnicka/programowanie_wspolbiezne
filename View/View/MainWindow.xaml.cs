@@ -12,5 +12,13 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (DataContext is MainViewModel viewModel)
+            {
+                viewModel.OnSizeChanged(e);
+            }
+        }
     }
 }
