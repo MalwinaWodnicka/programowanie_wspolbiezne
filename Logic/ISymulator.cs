@@ -14,5 +14,9 @@ namespace Logika
         void DodajKule(double x, double y, double predkoscX, double predkoscY, double promien);
         IEnumerable<Kula> PobierzKule();
         void ClearKule();
+
+        event EventHandler KuleUpdated;
+        void StartUpdating(int intervalMs);
+        void StopUpdating();
     }
 }

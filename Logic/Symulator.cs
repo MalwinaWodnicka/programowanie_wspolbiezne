@@ -15,7 +15,8 @@ namespace Logic
         private double _wysokosc;
         private Random _random = new Random();
         private readonly object _updateLock = new object();
-
+        private readonly System.Timers.Timer _updateTimer;
+        public event EventHandler KuleUpdated;
         public Symulator(double szerokosc, double wysokosc) : this(new ZbiorKul(), szerokosc, wysokosc)
         {
         }
@@ -24,6 +25,24 @@ namespace Logic
         {
             _zbior = zbiorKul ?? throw new ArgumentNullException(nameof(zbiorKul));
             UpdateGranice(szerokosc, wysokosc);
+
+            _updateTimer = new System.Timers.Timer();
+            _updateTimer.Elapsed += (sender, e) =>
+            {
+                Update();
+                KuleUpdated?.Invoke(this, EventArgs.Empty);
+            };
+        }
+
+        public void StartUpdating(int intervalMs)
+        {
+            _updateTimer.Interval = intervalMs;
+            _updateTimer.Start();
+        }
+
+        public void StopUpdating()
+        {
+            _updateTimer.Stop();
         }
 
         public void DodajLosoweKule(int liczbaKul, double minPromien, double maxPromien, double minPredkosc, double maxPredkosc)
@@ -129,7 +148,7 @@ namespace Logic
 
             if (velocityAlongNormal > 0) return;
 
-            double restitution = 1.0; 
+            double restitution = 1.0;
             double j = -(1 + restitution) * velocityAlongNormal;
             j /= (1 / a.Masa) + (1 / b.Masa);
 

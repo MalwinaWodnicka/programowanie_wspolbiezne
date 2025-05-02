@@ -47,7 +47,6 @@ namespace ViewModel
     public class MainViewModel : ObservableObject
     {
         private readonly ISymulator _symulator;
-        private readonly DispatcherTimer _timer;
         private ObservableCollection<Model> _kule = new ObservableCollection<Model>();
         private double _width;
         private double _height;
@@ -90,17 +89,30 @@ namespace ViewModel
 
         public MainViewModel()
         {
-            _symulator = new Symulator(800, 450); // Domyślne wartości
+            _symulator = new Symulator(800, 450);
+            _symulator.KuleUpdated += OnKuleUpdated;
+            _symulator.StartUpdating(30); // 30ms update interval
+
             InterakcjaCommand = new RelayCommand(ExecuteInterakcja);
             LoadedCommand = new RelayCommand(OnLoaded);
             SizeChangedCommand = new RelayCommand(OnSizeChanged);
+        }
 
-            _timer = new DispatcherTimer
+        private void OnKuleUpdated(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                Interval = TimeSpan.FromMilliseconds(30)
-            };
-            _timer.Tick += Timer_Tick;
-            _timer.Start();
+                Kule.Clear();
+                foreach (var kula in _symulator.PobierzKule())
+                {
+                    Kule.Add(new Model
+                    {
+                        X = kula.X - kula.Promien,
+                        Y = kula.Y - kula.Promien,
+                        Promien = kula.Promien
+                    });
+                }
+            });
         }
 
         private void OnLoaded(object parameter)
@@ -169,25 +181,10 @@ namespace ViewModel
                 _symulator.DodajLosoweKule(5, 10, 30, 1, 5);
             }
         }
-
-        private void Timer_Tick(object sender, EventArgs e)
+        public void Dispose()
         {
-            _symulator.Update();
-            AktualizujKule();
-        }
-
-        private void AktualizujKule()
-        {
-            Kule.Clear();
-            foreach (var kula in _symulator.PobierzKule())
-            {
-                Kule.Add(new Model
-                {
-                    X = kula.X - kula.Promien,
-                    Y = kula.Y - kula.Promien,
-                    Promien = kula.Promien
-                });
-            }
+            _symulator.StopUpdating();
+            _symulator.KuleUpdated -= OnKuleUpdated;
         }
     }
 }
