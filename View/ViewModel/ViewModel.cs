@@ -91,7 +91,7 @@ namespace ViewModel
         {
             _symulator = new Symulator(800, 450);
             _symulator.KuleUpdated += OnKuleUpdated;
-            _symulator.StartUpdating(30); // 30ms update interval
+            _symulator.StartUpdating(30); 
 
             InterakcjaCommand = new RelayCommand(ExecuteInterakcja);
             LoadedCommand = new RelayCommand(OnLoaded);
