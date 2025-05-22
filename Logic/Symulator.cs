@@ -17,6 +17,7 @@ namespace Logic
         private readonly object _updateLock = new object();
         private readonly System.Timers.Timer _updateTimer;
         public event EventHandler KuleUpdated;
+        private readonly Logger _logger;
         public Symulator(double szerokosc, double wysokosc) : this(new ZbiorKul(), szerokosc, wysokosc)
         {
         }
@@ -25,6 +26,8 @@ namespace Logic
         {
             _zbior = zbiorKul ?? throw new ArgumentNullException(nameof(zbiorKul));
             UpdateGranice(szerokosc, wysokosc);
+
+            _logger = new Logger();
 
             _updateTimer = new System.Timers.Timer();
             _updateTimer.Elapsed += (sender, e) =>
@@ -102,6 +105,8 @@ namespace Logic
 
         private void HandleWallCollision(Kula kula)
         {
+            bool collisionOccurred = false;
+
             if (kula.X - kula.Promien < 0)
             {
                 kula.X = kula.Promien;
@@ -168,6 +173,8 @@ namespace Logic
             a.Y -= moveY;
             b.X += moveX;
             b.Y += moveY;
+
+            _logger.LogCollision(a, b);
         }
 
         public void UpdateGranice(double szerokosc, double wysokosc)
@@ -179,6 +186,11 @@ namespace Logic
         public void ClearKule()
         {
             _zbior.ClearKule();
+        }
+        public void Dispose()
+        {
+            _updateTimer?.Dispose();
+            _logger?.Dispose();
         }
     }
 }
