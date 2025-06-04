@@ -18,6 +18,8 @@ namespace Logic
         private readonly System.Timers.Timer _updateTimer;
         public event EventHandler KuleUpdated;
         private readonly Logger _logger;
+        private readonly System.Diagnostics.Stopwatch _stopwatch = new System.Diagnostics.Stopwatch();
+        private long _lastUpdateTicks;
         public Symulator(double szerokosc, double wysokosc) : this(new ZbiorKul(), szerokosc, wysokosc)
         {
         }
@@ -32,7 +34,14 @@ namespace Logic
             _updateTimer = new System.Timers.Timer();
             _updateTimer.Elapsed += (sender, e) =>
             {
-                Update();
+                _stopwatch.Start();
+                long currentTicks = _stopwatch.ElapsedTicks;
+                long elapsedTicks = currentTicks - _lastUpdateTicks;
+                _lastUpdateTicks = currentTicks;
+
+                double elapsedSeconds = (double)elapsedTicks / System.Diagnostics.Stopwatch.Frequency;
+
+                UpdateWithTime(elapsedSeconds);
                 KuleUpdated?.Invoke(this, EventArgs.Empty);
             };
         }
@@ -72,16 +81,18 @@ namespace Logic
             return _zbior.GetKule();
         }
 
-        public void Update()
+        public void UpdateWithTime(double elapsedSeconds)
         {
             lock (_updateLock)
             {
                 var kule = new List<Kula>(_zbior.GetKule());
+                var now = DateTime.Now;
 
                 Parallel.ForEach(kule, kula =>
                 {
-                    UpdateKulaPosition(kula);
+                    UpdateKulaPosition(kula, elapsedSeconds);
                     HandleWallCollision(kula);
+                    kula.LastUpdateTime = now;
                 });
 
                 for (int i = 0; i < kule.Count; i++)
@@ -90,17 +101,18 @@ namespace Logic
                     {
                         if (IsColliding(kule[i], kule[j]))
                         {
-                            HandleBallCollision(kule[i], kule[j]);
+                            HandleBallCollision(kule[i], kule[j], elapsedSeconds);
                         }
                     }
                 }
             }
         }
 
-        private void UpdateKulaPosition(Kula kula)
+        private void UpdateKulaPosition(Kula kula, double elapsedSeconds)
         {
-            kula.X += kula.PredkoscX;
-            kula.Y += kula.PredkoscY;
+            //double speedMultiplier = 50;
+            kula.X += kula.PredkoscX * elapsedSeconds; //* speedMultiplier;
+            kula.Y += kula.PredkoscY * elapsedSeconds; //* speedMultiplier;
         }
 
         private void HandleWallCollision(Kula kula)
@@ -138,10 +150,15 @@ namespace Logic
             return distance < (a.Promien + b.Promien);
         }
 
-        private void HandleBallCollision(Kula a, Kula b)
+        private void HandleBallCollision(Kula a, Kula b, double elapsedSeconds)
         {
-            double nx = b.X - a.X;
-            double ny = b.Y - a.Y;
+            double aX = a.X + a.PredkoscX * elapsedSeconds;
+            double aY = a.Y + a.PredkoscY * elapsedSeconds;
+            double bX = b.X + b.PredkoscX * elapsedSeconds;
+            double bY = b.Y + b.PredkoscY * elapsedSeconds;
+
+            double nx = bX - aX;
+            double ny = bY - aY;
             double distance = Math.Sqrt(nx * nx + ny * ny);
             nx /= distance;
             ny /= distance;

@@ -10,8 +10,9 @@ namespace Logika
     {
         void UpdateGranice(double szerokosc, double wysokosc);
         void DodajLosoweKule(int liczbaKul, double minPromien, double maxPromien, double minPredkosc, double maxPredkosc);
-        void Update();
         void DodajKule(double x, double y, double predkoscX, double predkoscY, double promien);
+        void UpdateWithTime(double elapsedSeconds);
+        void Dispose();
         IEnumerable<Kula> PobierzKule();
         void ClearKule();
 

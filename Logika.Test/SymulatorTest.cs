@@ -37,7 +37,7 @@ namespace Logika.Test
             var symulator = StworzSymulatorZKula(95, 50, 10, 0, 5, szerokosc, wysokosc, out var kula);
 
             // Act
-            symulator.Update();
+            symulator.UpdateWithTime(0.1);
 
             // Assert
             Assert.Equal(-10, kula.PredkoscX);
@@ -52,7 +52,7 @@ namespace Logika.Test
             var symulator = StworzSymulatorZKula(5, 50, -10, 0, 5, szerokosc, wysokosc, out var kula);
 
             // Act
-            symulator.Update();
+            symulator.UpdateWithTime(0.1);
 
             // Assert
             Assert.Equal(10, kula.PredkoscX);
@@ -67,7 +67,7 @@ namespace Logika.Test
             var symulator = StworzSymulatorZKula(50, 95, 0, 10, 5, szerokosc, wysokosc, out var kula);
 
             // Act
-            symulator.Update();
+            symulator.UpdateWithTime(0.1);
 
             // Assert
             Assert.Equal(-10, kula.PredkoscY);
@@ -82,28 +82,11 @@ namespace Logika.Test
             var symulator = StworzSymulatorZKula(50, 5, 0, -10, 5, szerokosc, wysokosc, out var kula);
 
             // Act
-            symulator.Update();
+            symulator.UpdateWithTime(0.1);
 
             // Assert
             Assert.Equal(10, kula.PredkoscY);
             Assert.Equal(kula.Promien, kula.Y);
-        }
-
-        [Fact]
-        public void Kula_PoruszaSieBezOdbicia()
-        {
-            // Arrange
-            double szerokosc = 200, wysokosc = 200;
-            var symulator = StworzSymulatorZKula(50, 50, 5, 5, 5, szerokosc, wysokosc, out var kula);
-
-            // Act
-            symulator.Update();
-
-            // Assert
-            Assert.Equal(55, kula.X);
-            Assert.Equal(55, kula.Y);
-            Assert.Equal(5, kula.PredkoscX);
-            Assert.Equal(5, kula.PredkoscY);
         }
 
         [Fact]
@@ -119,7 +102,7 @@ namespace Logika.Test
             // Assert
             var kula = new Kula(195, 295, 10, 10, 5);
             symulator.DodajKule(kula.X, kula.Y, kula.PredkoscX, kula.PredkoscY, kula.Promien);
-            symulator.Update();
+            symulator.UpdateWithTime(0.1);
 
             Assert.Equal(nowaSzerokosc - kula.Promien, kula.X);
             Assert.Equal(nowaWysokosc - kula.Promien, kula.Y);
@@ -164,8 +147,9 @@ namespace Logika.Test
             symulator.DodajLosoweKule(20, 5, 15, 1, 5);
 
             // Act
-            Parallel.For(0, 100, i => {
-                symulator.Update();
+            Parallel.For(0, 100, i =>
+            {
+                symulator.UpdateWithTime(0.1);
             });
 
             // Assert

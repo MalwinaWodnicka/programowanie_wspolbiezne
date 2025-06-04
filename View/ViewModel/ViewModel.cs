@@ -91,7 +91,7 @@ namespace ViewModel
         {
             _symulator = new Symulator(800, 450);
             _symulator.KuleUpdated += OnKuleUpdated;
-            _symulator.StartUpdating(30); 
+            _symulator.StartUpdating(16);
 
             InterakcjaCommand = new RelayCommand(ExecuteInterakcja);
             LoadedCommand = new RelayCommand(OnLoaded);
@@ -169,7 +169,7 @@ namespace ViewModel
                 }
 
                 _symulator.ClearKule();
-                _symulator.DodajLosoweKule(liczbaKul, 10, 30, 1, 5);
+                _symulator.DodajLosoweKule(liczbaKul, 10, 30, 100, 150);
             }
             else
             {
