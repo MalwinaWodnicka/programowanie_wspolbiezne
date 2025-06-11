@@ -11,10 +11,11 @@ namespace Dane
 {
     public class Logger : IDisposable
     {
+        //kolejka wątkowo-bezpieczna (wpisy bez ryzyka kolizji)
         private readonly ConcurrentQueue<string> _logQueue = new ConcurrentQueue<string>();
         private readonly string _logDirectory;
         private readonly string _logFilePrefix = "ball_log_";
-        private readonly TimeSpan _flushInterval = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan _flushInterval = TimeSpan.FromSeconds(1);
         private readonly int _maxRetryAttempts = 3;
         private readonly TimeSpan _retryDelay = TimeSpan.FromMilliseconds(100);
 
@@ -51,6 +52,7 @@ namespace Dane
         private void StartFlushTask()
         {
             _cts = new CancellationTokenSource();
+            //zapis asynchroniczny logów (na nowych wątkach)
             _flushTask = Task.Run(async () =>
             {
                 while (!_cts.Token.IsCancellationRequested)
@@ -70,16 +72,27 @@ namespace Dane
                 }
             }, _cts.Token);
         }
-
         public void LogCollision(Kula ball1, Kula ball2)
         {
             if (ball1 == null || ball2 == null) return;
 
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string logEntry = $"{timestamp}|Kolizja pomiedzy kula o promieniu R:{Math.Round(ball1.Promien, 2)} i masie M:{Math.Round(ball1.Masa, 2)} i kula o promieniu R:{Math.Round(ball2.Promien, 2)} i masie M:{Math.Round(ball2.Masa, 2)}";
+            //logi są dodawane do kolejki, nie bezpośrednio do pliku więc nie wpływa na wydajność symulacji
             _logQueue.Enqueue(logEntry);
         }
 
+        public void LogWallCollision(Kula ball, string wall)
+        {
+            if (ball == null || string.IsNullOrEmpty(wall)) return;
+
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string logEntry = $"{timestamp}|Kolizja kuli o promieniu R:{Math.Round(ball.Promien, 2)} i masie M:{Math.Round(ball.Masa, 2)} ze sciana: {wall}";
+            _logQueue.Enqueue(logEntry);
+        }
+
+
+        //pobieranie wpisów z kolejki i zapis do pliku
         private async Task FlushQueueToFileAsync()
         {
             int attempts = 0;

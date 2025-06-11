@@ -117,30 +117,33 @@ namespace Logic
 
         private void HandleWallCollision(Kula kula)
         {
-            bool collisionOccurred = false;
-
             if (kula.X - kula.Promien < 0)
             {
                 kula.X = kula.Promien;
                 kula.PredkoscX = -kula.PredkoscX;
+                _logger.LogWallCollision(kula, "lewa");
             }
             else if (kula.X + kula.Promien > _szerokosc)
             {
                 kula.X = _szerokosc - kula.Promien;
                 kula.PredkoscX = -kula.PredkoscX;
+                _logger.LogWallCollision(kula, "prawa");
             }
 
             if (kula.Y - kula.Promien < 0)
             {
                 kula.Y = kula.Promien;
                 kula.PredkoscY = -kula.PredkoscY;
+                _logger.LogWallCollision(kula, "gorna");
             }
             else if (kula.Y + kula.Promien > _wysokosc)
             {
                 kula.Y = _wysokosc - kula.Promien;
                 kula.PredkoscY = -kula.PredkoscY;
+                _logger.LogWallCollision(kula, "dolna");
             }
         }
+
 
         private bool IsColliding(Kula a, Kula b)
         {
